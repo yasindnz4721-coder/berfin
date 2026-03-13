@@ -5,116 +5,106 @@ document.addEventListener('DOMContentLoaded', () => {
 
     window.addEventListener('mousemove', (e) => {
         const { clientX: x, clientY: y } = e;
-        
         dot.style.transform = `translate(${x}px, ${y}px)`;
-        
         outline.animate({
             transform: `translate(${x}px, ${y}px)`
         }, { duration: 600, fill: 'forwards' });
     });
 
-    // Hover effect on interactive elements
+    // Hover interactions
     const hoverables = document.querySelectorAll('button, .gallery-item, .logo');
     hoverables.forEach(item => {
         item.addEventListener('mouseenter', () => {
-            outline.style.width = '60px';
-            outline.style.height = '60px';
-            outline.style.borderColor = 'rgba(230, 184, 162, 0.5)';
-            outline.style.backgroundColor = 'rgba(230, 184, 162, 0.1)';
+            outline.style.width = '70px';
+            outline.style.height = '70px';
+            outline.style.backgroundColor = 'rgba(255, 154, 158, 0.1)';
         });
         item.addEventListener('mouseleave', () => {
-            outline.style.width = '30px';
-            outline.style.height = '30px';
-            outline.style.borderColor = 'var(--accent-color)';
+            outline.style.width = '35px';
+            outline.style.height = '35px';
             outline.style.backgroundColor = 'transparent';
         });
     });
 
-    // Reveal Animations on Scroll
+    // Scroll Reveal
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('active');
             }
         });
-    }, { threshold: 0.15 });
+    }, { threshold: 0.2 });
 
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-    // Reconcile Button & Modal Logic
-    const btn = document.getElementById('reconcile-btn');
+    // Love Button & Modal
+    const loveBtn = document.getElementById('love-btn');
     const modal = document.getElementById('modal');
     const closeBtn = document.querySelector('.close-btn');
 
-    btn.addEventListener('click', () => {
+    loveBtn.addEventListener('click', () => {
         modal.style.display = 'flex';
-        createHeartExplosion();
-        startFloatingHearts();
+        createExplosion('❤️');
+        startStardust();
     });
 
     closeBtn.addEventListener('click', () => {
         modal.style.display = 'none';
-        stopFloatingHearts();
+        stopStardust();
     });
 
-    window.addEventListener('click', (e) => {
-        if (e.target === modal) {
-            modal.style.display = 'none';
-            stopFloatingHearts();
-        }
-    });
+    // Particle Systems
+    let stardustInterval;
 
-    // Advanced Heart Particle System
-    let floatingInterval;
+    function createParticle(symbol, className = '') {
+        const p = document.createElement('div');
+        p.innerHTML = symbol;
+        p.className = `heart-particle ${className}`;
+        p.style.left = Math.random() * 100 + 'vw';
+        p.style.fontSize = Math.random() * 20 + 10 + 'px';
+        p.style.position = 'fixed';
+        p.style.bottom = '-50px';
+        p.style.zIndex = '10002';
+        document.body.appendChild(p);
 
-    function createHeart(extraClass = '') {
-        const heart = document.createElement('div');
-        heart.innerHTML = '❤️';
-        heart.className = `heart-particle ${extraClass}`;
-        heart.style.left = Math.random() * 100 + 'vw';
-        heart.style.fontSize = Math.random() * 20 + 15 + 'px';
-        heart.style.opacity = Math.random();
-        heart.style.position = 'fixed';
-        heart.style.bottom = '-50px';
-        heart.style.zIndex = '9999';
-        heart.style.pointerEvents = 'none';
-        
-        document.body.appendChild(heart);
-
-        const duration = Math.random() * 3 + 3;
-        const xOffset = (Math.random() - 0.5) * 200;
-
-        heart.animate([
-            { transform: 'translateY(0) rotate(0deg)', opacity: 1 },
-            { transform: `translateY(-110vh) translateX(${xOffset}px) rotate(${Math.random() * 360}deg)`, opacity: 0 }
+        const duration = Math.random() * 4 + 4;
+        p.animate([
+            { transform: 'translateY(0) scale(1)', opacity: 0.8 },
+            { transform: `translateY(-110vh) translateX(${(Math.random()-0.5)*300}px) rotate(${Math.random()*720}deg) scale(0)`, opacity: 0 }
         ], {
             duration: duration * 1000,
-            easing: 'linear'
+            easing: 'cubic-bezier(0.1, 0, 0.3, 1)'
         });
-
-        setTimeout(() => heart.remove(), duration * 1000);
+        setTimeout(() => p.remove(), duration * 1000);
     }
 
-    function createHeartExplosion() {
-        for (let i = 0; i < 50; i++) {
-            setTimeout(() => createHeart('explosion'), i * 20);
+    function createExplosion(symbol) {
+        for(let i=0; i<60; i++) {
+            setTimeout(() => createParticle(symbol, 'exp'), i * 15);
         }
     }
 
-    function startFloatingHearts() {
-        floatingInterval = setInterval(() => createHeart(), 300);
+    function startStardust() {
+        stardustInterval = setInterval(() => createParticle('✨'), 200);
     }
 
-    function stopFloatingHearts() {
-        clearInterval(floatingInterval);
+    function stopStardust() {
+        clearInterval(stardustInterval);
     }
 
-    // Loader logic
+    // Modal Close on backdrop
+    window.onclick = (e) => {
+        if (e.target == modal) {
+            modal.style.display = "none";
+            stopStardust();
+        }
+    };
+
+    // Loader
     window.addEventListener('load', () => {
-        const loader = document.getElementById('loader');
         setTimeout(() => {
-            loader.style.opacity = '0';
-            setTimeout(() => loader.remove(), 500);
-        }, 1000);
+            document.getElementById('loader').style.opacity = '0';
+            setTimeout(() => document.getElementById('loader').remove(), 600);
+        }, 800);
     });
 });
