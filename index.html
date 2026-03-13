@@ -3,98 +3,106 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Berfin'e Özel | Bir Özür Mesajı</title>
+    <title>Berfin & Sen | Ebedi Bir Aşk Hikayesi</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Parisienne&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- Premium Loader -->
+    <div id="loader">
+        <div class="heart-loader"></div>
+    </div>
+
     <div class="cursor-dot"></div>
     <div class="cursor-outline"></div>
 
     <header>
         <nav>
-            <div class="logo">B<span>💙</span>Y</div>
+            <div class="logo">B<span>❤️</span>Y</div>
         </nav>
     </header>
 
     <main>
-        <!-- Hero Section -->
-        <section id="hero" class="section">
+        <!-- Hero Section: Epic Love -->
+        <section id="hero" class="section hero-parallax">
             <div class="overlay"></div>
             <div class="hero-content">
-                <h1 class="reveal-text">Berfin için...</h1>
-                <p class="reveal-text delay-1">Bazı şeyler kelimelerle anlatılamaz ama denemek istedim.</p>
+                <h2 class="subtitle reveal-text">Bizim Hikayemiz</h2>
+                <h1 class="main-title reveal-text delay-1">Her Şey Seninle Güzel</h1>
+                <p class="hero-desc reveal-text delay-2">Senin o derin mavi gözlerinde kaybolmak, benim için dünyanın en güzel yolculuğu.</p>
                 <div class="scroll-indicator">
-                    <span>Aşağı Kaydır</span>
                     <div class="mouse"></div>
                 </div>
             </div>
         </section>
 
-        <!-- About Section -->
-        <section id="about" class="section">
+        <!-- The Couple Section -->
+        <section id="couple" class="section">
             <div class="container">
-                <div class="flex-layout">
-                    <div class="image-box reveal">
-                        <img src="berfin_real.jpg" alt="Berfin">
+                <div class="flex-layout reverse">
+                    <div class="image-box reveal glass">
+                        <img src="couple.jpg" alt="Biz" class="couple-img">
                     </div>
                     <div class="text-box reveal">
-                        <h2>Derin Mavi Gözler, Simsiyah Saçlar...</h2>
-                        <p>Senin o bakışlarındaki huzuru, gülüşündeki o ışığı hiçbir şeye değişmem. Tartışmış olabiliriz, birbirimizi kırmış olabiliriz ama kalbimdeki yerin her zaman bambaşka.</p>
+                        <h2 class="serif-title">Birlikteyken...</h2>
+                        <p>Dünya duruyor sanki biz yan yanayken. Senin gülüşün kalbimdeki en güzel melodi, bakışların ise en huzurlu limanım.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Favorites Section -->
-        <section id="favorites" class="section">
+        <!-- Gallery Section: Moments -->
+        <section id="moments" class="section">
             <div class="container">
-                <h2 class="center-title reveal">En Sevdiklerinle Bir Mola</h2>
-                <div class="grid-layout">
-                    <div class="card reveal">
-                        <div class="card-image">
-                            <img src="coffee_chocolate_hero.png" alt="Kahve ve Çikolata">
-                        </div>
-                        <div class="card-content">
-                            <h3>Bir Fincan Huzur</h3>
-                            <p>Tıpkı sevdiğin o kahve gibi; bazen sert, bazen yumuşak ama her zaman vazgeçilmez.</p>
-                        </div>
+                <h2 class="center-title reveal">En Güzel Kareler</h2>
+                <div class="gallery-grid">
+                    <div class="gallery-item reveal glass">
+                        <img src="berfin1.jpg" alt="Berfin">
                     </div>
-                    <div class="card reveal delay-1">
-                        <div class="card-content">
-                            <h3>Tatlı Bir Başlangıç</h3>
-                            <p>Çikolatanın o mutluluk veren tadı gibi, seninle olan her anım benim için en büyük mutluluk kaynağı.</p>
-                        </div>
+                    <div class="gallery-item reveal glass delay-1">
+                        <img src="user1.jpg" alt="Sen">
+                    </div>
+                    <div class="gallery-item reveal glass delay-2">
+                        <img src="berfin2.jpg" alt="Berfin">
+                    </div>
+                    <div class="gallery-item reveal glass delay-3">
+                        <img src="user2.jpg" alt="Sen">
+                    </div>
+                    <div class="gallery-item reveal glass delay-4">
+                        <img src="berfin3.jpg" alt="Berfin">
+                    </div>
+                    <div class="gallery-item reveal glass delay-5">
+                        <img src="user3.jpg" alt="Sen">
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Message Section -->
-        <section id="message" class="section">
-            <div class="container message-container reveal">
-                <h2>Özür Dilerim...</h2>
-                <div class="message-box">
-                    <p>Seni kırdığım için, o güzel mavi gözlerini üzdüğüm için gerçekten üzgünüm. Aramızdaki bu tatsızlığı bir kenara bırakıp, tıpkı o sevdiğin kahve ve çikolata eşliğinde yeniden gülmeye ne dersin?</p>
-                    <p class="signature">Seni Çok Seviyorum.</p>
-                </div>
-                <div class="cta-area">
-                    <button id="reconcile-btn" class="btn">Beni Affeder misin?</button>
+        <!-- The Letter Section -->
+        <section id="letter" class="section">
+            <div class="container">
+                <div class="letter-box reveal glass">
+                    <h2 class="parisienne-text">Sevgili Berfin'e...</h2>
+                    <div class="letter-content">
+                        <p>Seni kırdığım her an için kalbim sızlıyor. O güzel mavi gözlerinde hüzne sebep olduğum için gerçekten çok üzgünüm.</p>
+                        <p>Sen benim hayatımdaki en değerli şeysin. Kahve kokusu kadar huzurlu, çikolata kadar tatlı günlerimiz olsun istiyorum.</p>
+                        <p>Lütfen bu tatsızlığı geride bırakalım ve yine el ele verelim. Seni her şeyden çok seviyorum.</p>
+                    </div>
+                    <div class="cta-area">
+                        <button id="reconcile-btn" class="btn-glow">Beni Affeder misin?</button>
+                    </div>
                 </div>
             </div>
         </section>
     </main>
 
-    <footer>
-    </footer>
-
     <div id="modal" class="modal">
-        <div class="modal-content">
+        <div class="modal-content glass">
             <span class="close-btn">&times;</span>
-            <h2>Harika! 💙</h2>
-            <p>O zaman en yakın zamanda kahveler benden, çikolatalar senden! Seni bekliyorum.</p>
+            <h2 class="parisienne-text">Seni Çok Seviyorum! ❤️</h2>
+            <p>O zaman el ele, yan yana, her zaman beraber...</p>
         </div>
     </div>
 

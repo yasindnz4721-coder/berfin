@@ -1,81 +1,120 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Custom Cursor
+    // Premium Custom Cursor
     const dot = document.querySelector('.cursor-dot');
     const outline = document.querySelector('.cursor-outline');
 
     window.addEventListener('mousemove', (e) => {
-        const posX = e.clientX;
-        const posY = e.clientY;
-
-        dot.style.left = `${posX}px`;
-        dot.style.top = `${posY}px`;
-
-        // Smooth outline follow
+        const { clientX: x, clientY: y } = e;
+        
+        dot.style.transform = `translate(${x}px, ${y}px)`;
+        
         outline.animate({
-            left: `${posX}px`,
-            top: `${posY}px`
-        }, { duration: 500, fill: 'forwards' });
+            transform: `translate(${x}px, ${y}px)`
+        }, { duration: 600, fill: 'forwards' });
+    });
+
+    // Hover effect on interactive elements
+    const hoverables = document.querySelectorAll('button, .gallery-item, .logo');
+    hoverables.forEach(item => {
+        item.addEventListener('mouseenter', () => {
+            outline.style.width = '60px';
+            outline.style.height = '60px';
+            outline.style.borderColor = 'rgba(230, 184, 162, 0.5)';
+            outline.style.backgroundColor = 'rgba(230, 184, 162, 0.1)';
+        });
+        item.addEventListener('mouseleave', () => {
+            outline.style.width = '30px';
+            outline.style.height = '30px';
+            outline.style.borderColor = 'var(--accent-color)';
+            outline.style.backgroundColor = 'transparent';
+        });
     });
 
     // Reveal Animations on Scroll
-    const observerOptions = {
-        threshold: 0.1
-    };
-
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('active');
             }
         });
-    }, observerOptions);
+    }, { threshold: 0.15 });
 
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-    // Reconcile Button & Modal
+    // Reconcile Button & Modal Logic
     const btn = document.getElementById('reconcile-btn');
     const modal = document.getElementById('modal');
     const closeBtn = document.querySelector('.close-btn');
 
     btn.addEventListener('click', () => {
         modal.style.display = 'flex';
-        // Add some confetti effect or similar logic here if needed
-        createHearts();
+        createHeartExplosion();
+        startFloatingHearts();
     });
 
     closeBtn.addEventListener('click', () => {
         modal.style.display = 'none';
+        stopFloatingHearts();
     });
 
     window.addEventListener('click', (e) => {
         if (e.target === modal) {
             modal.style.display = 'none';
+            stopFloatingHearts();
         }
     });
 
-    // Heart Animation Function
-    function createHearts() {
-        for (let i = 0; i < 30; i++) {
-            const heart = document.createElement('div');
-            heart.innerHTML = '💙';
-            heart.style.position = 'fixed';
-            heart.style.left = Math.random() * 100 + 'vw';
-            heart.style.top = '100vh';
-            heart.style.fontSize = Math.random() * 20 + 20 + 'px';
-            heart.style.zIndex = '3000';
-            heart.style.pointerEvents = 'none';
-            heart.style.transition = `transform ${Math.random() * 2 + 1}s linear, opacity 1s ease-out`;
-            
-            document.body.appendChild(heart);
+    // Advanced Heart Particle System
+    let floatingInterval;
 
-            setTimeout(() => {
-                heart.style.transform = `translateY(-120vh) rotate(${Math.random() * 360}deg)`;
-                heart.style.opacity = '0';
-            }, 100);
+    function createHeart(extraClass = '') {
+        const heart = document.createElement('div');
+        heart.innerHTML = '❤️';
+        heart.className = `heart-particle ${extraClass}`;
+        heart.style.left = Math.random() * 100 + 'vw';
+        heart.style.fontSize = Math.random() * 20 + 15 + 'px';
+        heart.style.opacity = Math.random();
+        heart.style.position = 'fixed';
+        heart.style.bottom = '-50px';
+        heart.style.zIndex = '9999';
+        heart.style.pointerEvents = 'none';
+        
+        document.body.appendChild(heart);
 
-            setTimeout(() => {
-                heart.remove();
-            }, 3000);
+        const duration = Math.random() * 3 + 3;
+        const xOffset = (Math.random() - 0.5) * 200;
+
+        heart.animate([
+            { transform: 'translateY(0) rotate(0deg)', opacity: 1 },
+            { transform: `translateY(-110vh) translateX(${xOffset}px) rotate(${Math.random() * 360}deg)`, opacity: 0 }
+        ], {
+            duration: duration * 1000,
+            easing: 'linear'
+        });
+
+        setTimeout(() => heart.remove(), duration * 1000);
+    }
+
+    function createHeartExplosion() {
+        for (let i = 0; i < 50; i++) {
+            setTimeout(() => createHeart('explosion'), i * 20);
         }
     }
+
+    function startFloatingHearts() {
+        floatingInterval = setInterval(() => createHeart(), 300);
+    }
+
+    function stopFloatingHearts() {
+        clearInterval(floatingInterval);
+    }
+
+    // Loader logic
+    window.addEventListener('load', () => {
+        const loader = document.getElementById('loader');
+        setTimeout(() => {
+            loader.style.opacity = '0';
+            setTimeout(() => loader.remove(), 500);
+        }, 1000);
+    });
 });
